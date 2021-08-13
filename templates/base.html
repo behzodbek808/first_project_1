@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,17 +6,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iBOS Education Center </title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
 </head>
 <body>
 
     <header>
-    <a href="{% url 'home' %}">Bosh sahifa</a>
-    <a href="{% url 'about' %}">Saytimiz haqida</a>
+    <h1><a href="{% url 'blog' %}">iBOS education</a></h1>
     </header>
+    
+    {% if user.is_authenticated %}
+        <p> Hush kelibsiz, {{ user.username }} </p> 
+        <p><a href="{% url 'logout' %}">Chiqib ketish</a></p>
+    {% else %}
+        <p>
+            <a href="{% url 'login' %}">Saytga kirish</a> |
+            <a href="{% url 'signup' %}">Ro'yxatdan o'tish</a>
+        </p>
+        
+    {% endif %}
 
-    {% block content%}
+
+    <div>
+        {% block content %}
       
-    {% endblock content%}
+        {% endblock content %}
+    </div>
+
+    <footer>
+        <h2><a href="{% url 'post_new' %}"> Yangi post yozish</a></h2>
+    </footer>
 
     
 </body>
